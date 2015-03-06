@@ -3,16 +3,16 @@
     require_once __DIR__."/../src/adress_book.php";
 
     session_start();
-    if(empty($_SESSION['contact_list'])) {
-        $_SESSION['contact_list'] = array();
-        $ophelie = new Contact("Ophelie Wilmotte", 971-133-4354, "Rue du Vigneron 109 - 6000 Ransart - Belgium");
-        $vanessa = new Contact("Vanessa Trubiano", 503-554-8394, "Rue Bois du Sart 40B - 6180 Courcelles - Belgium");
-        $valentina = new Contact("Valentina Olaru", 503-447-0081, "Rue Bois du Sart 40B - 6180 Courcelles - Belgium");
-        $pascal = new Contact("Pascal Trubiano", 971-390-7373, "Rue Bois du Sart 40B - 6180 Courcelles - Belgium");
-        $astrid = new Contact("Vanessa Trubiano", 503-468-2200, "Rue Nestor Falise 13 - 6180 Courcelles - Belgium");
+    if(empty($_SESSION['contacts_list'])) {
+        //$_SESSION['contacts_list'] = array();
+        $ophelie = new Contact("Ophelie Wilmotte", 971 133 4354, "Rue du Vigneron 109 - 6000 Ransart - Belgium");
+        $vanessa = new Contact("Vanessa Trubiano", 503 554 8394, "Rue Bois du Sart 40B - 6180 Courcelles - Belgium");
+        $valentina = new Contact("Valentina Olaru", 503 447 0081, "Rue Bois du Sart 40B - 6180 Courcelles - Belgium");
+        $pascal = new Contact("Pascal Trubiano", 971 390 7373, "Rue Bois du Sart 40B - 6180 Courcelles - Belgium");
+        $astrid = new Contact("Astrid Verdois", 503 468 2200, "Rue Nestor Falise 13 - 6180 Courcelles - Belgium");
 
-        $contact_data = array($ophelie, $vanessa, $valentina, $pascal, $astrid);
-        $contact_data->save();
+        $contacts_data = array($ophelie, $vanessa, $valentina, $pascal, $astrid);
+        $contacts_data->save();
     }
 
     $app = new Silex\Application();
@@ -34,9 +34,9 @@
 
     });
 
-    $app->get("/result_page", function() use ($app) {
+    $app->post("/result_page", function() use ($app) {
 
-         foreach ($_SESSION['contact_list'] as $a_contact) {
+         foreach ($_SESSION['contacts_list'] as $a_contact) {
             if ($a_contact->getName() == $_GET['name']) {
                 array_push($matching_contact, $a_contact);
             }
@@ -47,7 +47,7 @@
 
     $app->post("/delete_contact", function() use ($app) {
 
-        Car::deleteAll();
+        Contact::deleteAll();
         return $app['twig']->render('delete_contact.php');
 
     });

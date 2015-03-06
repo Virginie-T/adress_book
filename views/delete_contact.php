@@ -5,9 +5,9 @@
 </head>
 <body>
     <div class="container">
-        <h1>List has been cleared !</h1>
+        <h1>Address book cleared !</h1>
         <form>
-            <p><a href="/">Go back Home</a></p>
+            <p><a href="/">Home</a></p>
         </form>
     </div>
 </body>

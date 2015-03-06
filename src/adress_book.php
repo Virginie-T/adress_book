@@ -18,7 +18,7 @@
             $this->name = (string) $new_name;
         }
 
-        function setPone_number($new_phone_number)
+        function setPhone_number($new_phone_number)
         {
             $float_phone_number = (float) $new_phone_number;
         if ($float_phone_number != 0) {
@@ -45,22 +45,21 @@
         {
         	return $this->adress;
         }
+        
+        static function getAll()
+        {
+            return $_SESSION['contacts_list'];
+        }
 
 		function save()
         {
-            array_push($_SESSION['contact_list'], $this);
-        }
-
-        static function getAll()
-        {
-            return $_SESSION['contact_list'];
+            array_push($_SESSION['contacts_list'], $this);
         }
 
         static function deleteAll()
         {
-            $_SESSION['contact_list'] = array();
+            $_SESSION['contacts_list'] = array();
         }
-
 	}
 
 ?>

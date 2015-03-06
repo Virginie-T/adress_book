@@ -4,10 +4,10 @@
     <title>Contact Book</title>
 </head>
 <body>
-    <div class='container'>
+    <div class="container">
 
         <h1>Add a new contact :</h1>
-        <form action='/create_contact' method='post'>
+        <form action="/create_contact" method="post">
             <div class='form-group'>
                 <label for='name'>Name :</label>
                 <input id="name" name="name" type="text" class='form-control'>
@@ -32,6 +32,7 @@
                 <label for='name'>Enter Name :</label>
                 <input id='name' name='name' class='form-control' type='text'>
             </div>
+
             <button type='submit' class='btn btn-success'>Submit</button>
         </form>
 
@@ -42,15 +43,15 @@
     </form>
 
     <div class='container2'>
-  {% if contacts is not empty  %}
-        <h2>Contact List :</h2>
-        <ul>
-            {% for contact in contacts %}
-                <li>Name : {{ contact.getName }}</li>
-                <li>Phone Number : {{ contact.getPhone_number}}</li>
-                <li>Adress : {{ contact.phone_numberdress}}</li> 
-            {% endfor %}
-        </ul>
+        {% if contacts is not empty  %}
+            <h2>Contacts List :</h2>
+            <ul>
+                {% for contact in contacts %}
+                    <li>Name : {{ contact.getName }}</li>
+                    <li>Phone Number : {{ contact.getPhone_number }}</li>
+                    <li>Adress : {{ contact.getAdress }}</li> 
+                {% endfor %}
+            </ul>
         {% endif %}
     </div>
 
