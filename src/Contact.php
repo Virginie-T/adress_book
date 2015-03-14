@@ -20,10 +20,16 @@
 
         function setPhone_number($new_phone_number)
         {
+
             $float_phone_number = (float) $new_phone_number;
-        if ($float_phone_number != 0) {
-            $formatted_phone_number = number_format($float_phone_number, 0);
+            if ($float_phone_number != 0) {
+                $formatted_phone_number = number_format($float_phone_number, 0); 
+            }
             $this->phone_number = $formatted_phone_number;
+
+        //    $this->phone_number = (number) $new_phone_number;
+        
+            
         }
 
         function setAdress($new_adress)
@@ -36,7 +42,7 @@
         	return $this->name;
         }
 
-        function getPhone_number()
+        function getPhoneNumber()
         {
         	return $this->phone_number;
         }

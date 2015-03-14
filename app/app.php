@@ -4,15 +4,17 @@
 
     session_start();
     if(empty($_SESSION['contacts_list'])) {
-        //$_SESSION['contacts_list'] = array();
-        $ophelie = new Contact("Ophelie Wilmotte", 971 133 4354, "Rue du Vigneron 109 - 6000 Ransart - Belgium");
-        $vanessa = new Contact("Vanessa Trubiano", 503 554 8394, "Rue Bois du Sart 40B - 6180 Courcelles - Belgium");
-        $valentina = new Contact("Valentina Olaru", 503 447 0081, "Rue Bois du Sart 40B - 6180 Courcelles - Belgium");
-        $pascal = new Contact("Pascal Trubiano", 971 390 7373, "Rue Bois du Sart 40B - 6180 Courcelles - Belgium");
-        $astrid = new Contact("Astrid Verdois", 503 468 2200, "Rue Nestor Falise 13 - 6180 Courcelles - Belgium");
+        $_SESSION['contacts_list'] = array();
+        $ophelie = new Contact("Ophelie Wilmotte", 9711334354, "Rue du Vigneron 109 - 6000 Ransart - Belgium");
+        $vanessa = new Contact("Vanessa Trubiano", 5035548394, "Rue Bois du Sart 40B - 6180 Courcelles - Belgium");
+        $valentina = new Contact("Valentina Olaru", 5034470081, "Rue Bois du Sart 40B - 6180 Courcelles - Belgium");
+        $pascal = new Contact("Pascal Trubiano", 9713907373, "Rue Bois du Sart 40B - 6180 Courcelles - Belgium");
+        $astrid = new Contact("Astrid Verdois", 5034682200, "Rue Nestor Falise 13 - 6180 Courcelles - Belgium");
 
         $contacts_data = array($ophelie, $vanessa, $valentina, $pascal, $astrid);
-        $contacts_data->save();
+        foreach ($contacts_data as $contact) {
+            $contact->save(); 
+        }
     }
 
     $app = new Silex\Application();
@@ -22,7 +24,7 @@
     ));
 
     $app->get("/", function() use ($app) {
-        return $app['twig']->render('contact_form.php', array('contacts' => Contact::getAll()));
+        return $app['twig']->render('contact_form.twig', array('contacts' => Contact::getAll()));
     });
 
     $app->post("/create_contact", function() use ($app) {
@@ -30,25 +32,27 @@
         $contact = new Contact($_POST['name'], $_POST['phone_number'], $_POST['adress']);
         $contact->save();
 
-        return $app['twig']->render('create_contact.php', array('newcontact' => $contact));
+        return $app['twig']->render('create_contact.twig', array('newcontact' => $contact));
 
     });
 
     $app->post("/result_page", function() use ($app) {
 
-         foreach ($_SESSION['contacts_list'] as $a_contact) {
+        $array_contacts_list = array($_SESSION['contacts_list']);
+
+         foreach ($array_contacts_list as $a_contact) {
             if ($a_contact->getName() == $_GET['name']) {
                 array_push($matching_contact, $a_contact);
             }
         }
-        return $app['twig']->render('result_page.php', array('matching_contact' => $matching_contact));
+        return $app['twig']->render('result_page.twig', array('matching_contact' => $matching_contact));
 
     });
 
     $app->post("/delete_contact", function() use ($app) {
 
         Contact::deleteAll();
-        return $app['twig']->render('delete_contact.php');
+        return $app['twig']->render('delete_contact.twig');
 
     });
 
